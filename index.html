@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Janet Adekunrun — Creative Technologist & Youth Ambassador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--bg:#0a0a0f;--bg2:#111118;--accent:#e8c547;--accent2:#ff6b35;--text:#f0ede6;--muted:#7a7880;--card:#16161f;--border:rgba(232,197,71,0.15);}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;background:rgba(10,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent);letter-spacing:0.15em;}
+    .nav-links{display:flex;gap:1.2rem;}
+    .nav-links a{text-decoration:none;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.3s;}
+    .nav-links a:hover{color:var(--accent);}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 1.5rem 3rem;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,197,71,0.08) 0%,transparent 70%);top:30%;right:-100px;pointer-events:none;}
+    .hero-photo-wrap{display:flex;justify-content:center;margin-bottom:2rem;}
+    .hero-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--accent);box-shadow:0 0 30px rgba(232,197,71,0.2);}
+    .hero-tag{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;}
+    .hero-tag::before{content:'';width:24px;height:1px;background:var(--accent);}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,8vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1.2rem;}
+    h1 .hi{color:var(--accent);font-style:italic;}
+    .hero-desc{font-size:0.88rem;line-height:1.85;color:var(--muted);margin-bottom:1.5rem;}
+    .hero-meta{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;}
+    .hm{display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;color:var(--muted);}
+    .hm span:first-child{font-size:0.9rem;}
+    .badges{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.8rem;}
+    .badge{font-family:'Space Mono',monospace;font-size:0.52rem;padding:0.2rem 0.55rem;border:1px solid var(--border);color:var(--accent);letter-spacing:0.06em;text-transform:uppercase;}
+    .hero-cta{display:flex;gap:0.8rem;flex-wrap:wrap;}
+    .btn{padding:0.8rem 1.6rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;font-family:'Space Mono',monospace;display:inline-block;}
+    .btn-primary{background:var(--accent);color:var(--bg);font-weight:700;border:none;}
+    .btn-primary:hover{background:var(--accent2);}
+    .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+    section{position:relative;z-index:2;}
+    .sw{padding:4rem 1.5rem;}
+    .sl{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.6rem;}
+    .sl::after{content:'';max-width:40px;height:1px;background:var(--accent);flex:1;}
+    h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.4rem);font-weight:700;margin-bottom:2rem;line-height:1.15;}
+
+    /* ABOUT */
+    .about-bg{background:var(--bg2);}
+    .about-text p{font-size:0.86rem;line-height:1.9;color:rgba(240,237,230,0.75);margin-bottom:0.9rem;}
+    .about-text p strong{color:var(--accent);font-weight:500;}
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-top:1.8rem;}
+    .sc{background:var(--card);border:1px solid var(--border);padding:1.1rem;position:relative;overflow:hidden;}
+    .sc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);}
+    .sn{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1;margin-bottom:0.3rem;}
+    .sl2{font-size:0.68rem;color:var(--muted);}
+
+    /* SKILLS */
+    .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .skill-card{background:var(--card);border:1px solid var(--border);padding:1.2rem;transition:border-color 0.3s;position:relative;overflow:hidden;}
+    .skill-card:hover{border-color:var(--accent);}
+    .skill-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+    .skill-card:hover::after{transform:scaleX(1);}
+    .ski{font-size:1.4rem;margin-bottom:0.6rem;display:block;}
+    .skt{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:700;margin-bottom:0.3rem;}
+    .skd{font-size:0.72rem;line-height:1.7;color:var(--muted);}
+    .skl{margin-top:0.5rem;font-family:'Space Mono',monospace;font-size:0.5rem;color:var(--accent2);}
+    .tags{margin-top:0.7rem;display:flex;flex-wrap:wrap;gap:0.28rem;}
+    .tag{font-family:'Space Mono',monospace;font-size:0.48rem;padding:0.14rem 0.4rem;background:rgba(232,197,71,0.08);color:var(--accent);border:1px solid rgba(232,197,71,0.2);text-transform:uppercase;}
+
+    /* PROJECTS */
+    .proj-grid{display:grid;grid-template-columns:1fr;gap:1.1rem;}
+    .proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color 0.3s;}
+    .proj-card:hover{border-color:var(--accent);}
+    .proj-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-bottom:1px solid var(--border);}
+    .proj-body{padding:1.1rem;}
+    .proj-type{font-family:'Space Mono',monospace;font-size:0.5rem;color:var(--accent2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.38rem;}
+    .proj-title{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;margin-bottom:0.38rem;}
+    .proj-desc{font-size:0.74rem;line-height:1.7;color:var(--muted);}
+    .proj-link{display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.85rem;font-family:'Space Mono',monospace;font-size:0.56rem;color:var(--accent);text-decoration:none;letter-spacing:0.08em;border-bottom:1px solid rgba(232,197,71,0.3);padding-bottom:0.1rem;}
+
+    /* CERTIFICATES */
+    .certs-bg{background:var(--bg2);}
+    .certs-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;}
+    .cert-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color 0.3s;}
+    .cert-card:hover{border-color:var(--accent);}
+    .cert-img-wrap{position:relative;overflow:hidden;height:clamp(200px, 50vw, 500px);}
+    .cert-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+    .cert-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,22,31,0.85) 0%,transparent 55%);}
+    .cert-body{padding:1.1rem;}
+    .cert-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:0.48rem;padding:0.16rem 0.44rem;background:rgba(232,197,71,0.1);color:var(--accent);border:1px solid rgba(232,197,71,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.55rem;}
+    .cert-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;margin-bottom:0.24rem;}
+    .cert-issuer{font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.2rem;}
+    .cert-date{font-family:'Space Mono',monospace;font-size:0.5rem;color:var(--muted);margin-bottom:0.5rem;}
+    .cert-note{font-size:0.74rem;color:var(--muted);line-height:1.65;}
+    .cert-emoji{height:170px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,#0d1b2e,#1a2a4a);}
+
+    /* EXPERIENCE */
+    .exp-item{display:grid;grid-template-columns:72px 1fr;gap:1rem;margin-bottom:2.2rem;position:relative;}
+    .exp-item::before{content:'';position:absolute;left:72px;top:0;bottom:-2.2rem;width:1px;background:var(--border);}
+    .exp-item:last-child::before{display:none;}
+    .exp-year{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--accent);letter-spacing:0.07em;padding-top:0.2rem;text-align:right;line-height:1.5;}
+    .exp-content{padding-left:1.5rem;position:relative;}
+    .exp-content::before{content:'';position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);}
+    .exp-role{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;margin-bottom:0.16rem;}
+    .exp-org{font-family:'Space Mono',monospace;font-size:0.56rem;color:var(--accent2);letter-spacing:0.08em;margin-bottom:0.45rem;}
+    .exp-desc{font-size:0.76rem;line-height:1.8;color:var(--muted);}
+    .exp-ul{margin-top:0.4rem;padding-left:0;list-style:none;}
+    .exp-ul li{font-size:0.74rem;color:var(--muted);line-height:1.75;padding-left:0.9rem;position:relative;margin-bottom:0.2rem;}
+    .exp-ul li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:0.44rem;top:0.3rem;}
+
+    /* CONTACT */
+    .contact-links{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:2rem;}
+    .clink{display:flex;align-items:center;gap:0.8rem;text-decoration:none;padding:0.75rem 1rem;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:0.78rem;transition:border-color 0.3s;word-break:break-all;}
+    .clink:hover{border-color:var(--accent);color:var(--accent);}
+    .li{font-size:0.9rem;min-width:18px;flex-shrink:0;}
+    .cform{display:flex;flex-direction:column;gap:0.85rem;}
+    .ff{display:flex;flex-direction:column;gap:0.3rem;}
+    label{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;}
+    input,textarea{background:var(--card);border:1px solid var(--border);color:var(--text);padding:0.7rem 0.85rem;font-family:'DM Sans',sans-serif;font-size:0.84rem;outline:none;transition:border-color 0.3s;resize:none;width:100%;}
+    input:focus,textarea:focus{border-color:var(--accent);}
+    input::placeholder,textarea::placeholder{color:var(--muted);}
+
+    .notice{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);padding:0.9rem 1.1rem;margin-bottom:2rem;font-size:0.76rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.6rem;}
+    .notice a{color:var(--accent);}
+    .ach{background:linear-gradient(135deg,rgba(232,197,71,0.07),rgba(255,107,53,0.04));border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.1rem 1.4rem;margin-bottom:2rem;display:flex;align-items:flex-start;gap:0.9rem;}
+    .ach-i{font-size:1.5rem;flex-shrink:0;}
+    .ach-t{font-size:0.8rem;color:var(--text);line-height:1.6;}
+    .ach-t strong{color:var(--accent);}
+
+    footer{padding:1.6rem 1.5rem;border-top:1px solid var(--border);font-size:0.6rem;color:var(--muted);font-family:'Space Mono',monospace;text-align:center;line-height:2;}
+    footer span{color:var(--accent);}
+
+    .fade-up{opacity:0;transform:translateY(22px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .fade-up.visible{opacity:1;transform:none;}
+    .divider{display:flex;align-items:center;gap:0.8rem;padding:0 1.5rem;opacity:0.25;}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--accent);}
+    .divider span{font-family:'Space Mono',monospace;font-size:0.52rem;color:var(--accent);letter-spacing:0.25em;}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Janet Adekunrun ✦</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Work</a>
+    <a href="#certificates">Certs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-photo-wrap">
+    <img class="hero-photo" src="certificate/img.jpg" alt="img">
+  </div>
+  <div class="hero-tag">Youth Ambassador · Creative Technologist</div>
+  <h1>Janet<br/><span class="hi">Adekunrun.</span></h1>
+  <p class="hero-desc">Designer. Developer. AI Engineer. Video Editor. Content Creator. Youth Advocate. — Building meaningful digital experiences from Lagos, Nigeria.</p>
+  <div class="hero-meta">
+    <div class="hm"><span>📍</span><span>Makoko, Lagos, Nigeria</span></div>
+    <div class="hm"><span>🎓</span><span>BSc Biochemistry — FUADSI, Iragbiji</span></div>
+    <div class="hm"><span>✉️</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="375653525c42594542595d5659524377505a565e5b1954585a">[email&#160;protected]</a></span></div>
+    <div class="hm"><span>📞</span><span>08022348640</span></div>
+  </div>
+  <div class="badges">
+    <span class="badge">Youth Ambassador</span>
+    <span class="badge">Graphic Designer</span>
+    <span class="badge">Frontend Dev</span>
+    <span class="badge">AI Engineer</span>
+    <span class="badge">Video Editor</span>
+    <span class="badge">🏆 Top 3 Winner</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- ABOUT -->
+<section id="about" class="about-bg">
+  <div class="sw">
+    <div class="sl">About Me</div>
+    <h2>Driven by purpose,<br/><em>powered by creativity.</em></h2>
+    <div class="about-text fade-up">
+      <p>I am <strong>Janet Adekunrun</strong> — a <strong>Youth Ambassador at Action Health Incorporated (AHI), 2025</strong>, championing youth health education and community empowerment across Lagos. I also run <strong>Jane Creative</strong>, my digital content brand, since February 2024.</p>
+      <p>I am a certified <strong>Graphic Designer</strong> (Her Tech Africa, Cohort 3), an <strong>AI/ML Engineer</strong> (TechCrush 15-week Bootcamp, ACTD USA accredited), trained in <strong>AI Prompt Engineering</strong> (GYGI — Girls You Got It), a <strong>Front-End Web Developer</strong> with live deployed projects, and a self-trained <strong>Video Editor & Animator</strong>.</p>
+      <p>I hold a <strong>Top 3 Winner</strong> recognition from the CollegeGuideAfrica #YouthCreativeChallenge2025, completed the AHI Youth Skills Development Programme, participated in SustyVibes National Street Conference 2025, and hold a <strong>GESP Certificate of Completion</strong> (UNICEF-backed).</p>
+      <p>Currently studying <strong>BSc Biochemistry</strong> at <strong>FUADSI</strong> — Federal University of Agriculture and Development Studies, Iragbiji, Osun State.</p>
+    </div>
+    <div class="stats-grid fade-up">
+      <div class="sc"><div class="sn">6+</div><div class="sl2">Disciplines</div></div>
+      <div class="sc"><div class="sn">2025</div><div class="sl2">AHI Ambassador</div></div>
+      <div class="sc"><div class="sn">🏆</div><div class="sl2">Top 3 YCC2025</div></div>
+      <div class="sc"><div class="sn">5+</div><div class="sl2">Certifications</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sw">
+    <div class="sl">Expertise</div>
+    <h2>What I bring<br/>to the <em>table.</em></h2>
+    <div class="skills-grid fade-up">
+      <div class="skill-card">
+        <span class="ski">🎨</span>
+        <div class="skt">Graphic Design</div>
+        <div class="skd">Brand identities, social graphics, and visual content.</div>
+        <div class="skl">📍 Her Tech Africa, Cohort 3</div>
+        <div class="tags"><span class="tag">Photoshop</span><span class="tag">Canva</span><span class="tag">Efata</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="ski">💻</span>
+        <div class="skt">Front-End Dev</div>
+        <div class="skd">Responsive web apps with HTML, CSS, JavaScript.</div>
+        <div class="skl">📍 Multiple live projects</div>
+        <div class="tags"><span class="tag">HTML/CSS</span><span class="tag">JS</span><span class="tag">Netlify</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="ski">🤖</span>
+        <div class="skt">AI / ML</div>
+        <div class="skd">AI apps with Python, Jupyter, and LLM tools.</div>
+        <div class="skl">📍 TechCrush · GYGI</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Jupyter</span><span class="tag">Prompting</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="ski">🎬</span>
+        <div class="skt">Video & Animation</div>
+        <div class="skd">Videos and animations for social media campaigns.</div>
+        <div class="skl">📍 Independent</div>
+        <div class="tags"><span class="tag">CapCut</span><span class="tag">Inshot</span><span class="tag">Plotagon</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="ski">📱</span>
+        <div class="skt">Content Creation</div>
+        <div class="skd">Educational content for Instagram and TikTok.</div>
+        <div class="skl">📍 Jane Creative · 2024–Present</div>
+        <div class="tags"><span class="tag">Instagram</span><span class="tag">TikTok</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="ski">🌍</span>
+        <div class="skt">Youth Advocacy</div>
+        <div class="skd">Health education, outreach and community empowerment.</div>
+        <div class="skl">📍 AHI · GESP/UNICEF</div>
+        <div class="tags"><span class="tag">Speaking</span><span class="tag">Outreach</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--bg2);">
+  <div class="sw">
+    <div class="sl">Live Projects</div>
+    <h2>Things I've<br/><em>built & shipped.</em></h2>
+    <div class="ach fade-up">
+      <span class="ach-i">🏆</span>
+      <span class="ach-t"><strong>Top 3 Winner</strong> — CollegeGuideAfrica #YouthCreativeChallenge2025. Recognised among the top 3 creative youth in Africa.</span>
+    </div>
+    <div class="notice">
+      <span>📁</span>
+      <span>Design & video work: <a href="https://drive.google.com/drive/folders/1eQ4rGPOaFGMdVPpv_VEKsaurhFyvgTTA" target="_blank">Google Drive Portfolio →</a></span>
+    </div>
+    <div class="proj-grid fade-up">
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a2a4a,#0d1b2e);">🏫</div>
+        <div class="proj-body">
+          <div class="proj-type">Front-End · Full Website</div>
+          <div class="proj-title">Jane's Educational Hub</div>
+          <div class="proj-desc">Full educational platform with learning resources, tutors, STEM tools, blog, and product listings. Deployed on Netlify.</div>
+          <a href="https://jane-educational-hub.netlify.app" target="_blank" class="proj-link">Visit Live Site →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a3a2a,#0d2a1a);">🧠</div>
+        <div class="proj-body">
+          <div class="proj-type">Front-End · Interactive App</div>
+          <div class="proj-title">Janet Quiz Hub</div>
+          <div class="proj-desc">Interactive quiz app on web development topics with score tracking, built with vanilla JavaScript.</div>
+          <a href="https://janet18-ade.github.io/final_project/" target="_blank" class="proj-link">Try the Quiz →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#2a1a3a,#1a0d2e);">👤</div>
+        <div class="proj-body">
+          <div class="proj-type">Front-End · API Integration</div>
+          <div class="proj-title">Random Users App</div>
+          <div class="proj-desc">Dynamic app fetching user profiles via API — demonstrates async JavaScript and DOM rendering.</div>
+          <a href="https://janet18-ade.github.io/week5_assignment/" target="_blank" class="proj-link">View Project →</a>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#3a2a1a,#2e1a0d);">🎨</div>
+        <div class="proj-body">
+          <div class="proj-type">Design · Video · Animation</div>
+          <div class="proj-title">Jane Creative Portfolio</div>
+          <div class="proj-desc">Curated graphic designs, video edits, and animations for social media and awareness campaigns.</div>
+          <a href="https://drive.google.com/drive/folders/1eQ4rGPOaFGMdVPpv_VEKsaurhFyvgTTA" target="_blank" class="proj-link">View on Google Drive →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- CERTIFICATES -->
+<section id="certificates" class="certs-bg">
+  <div class="sw">
+    <div class="sl">Certifications</div>
+    <h2>Knowledge,<br/><em>certified.</em></h2>
+    <div class="certs-grid fade-up">
+          
+      <div class="cert-card">
+        <div class="cert-img-wrap">
+            <img src="certificate/techcrush.jpg" alt="TechCrush">
+        </div>
+        <div class="cert-body">
+          <span class="cert-badge">Certificate of Completion</span>
+          <div class="cert-name">Artificial Intelligence</div>
+          <div class="cert-issuer">TechCrush · ACTD Accredited, USA</div>
+          <div class="cert-date">Completed: 28th March, 2026 · ID: TEC-6AD61B27</div>
+          <div class="cert-note">15-week AI Bootcamp Scholarship — accredited by the American Council of Training and Development, USA.</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-wrap">
+          <img src="certificate/hertech.jpg" alt="hertech">
+        </div>
+
+        <div class="cert-body">
+          <span class="cert-badge">Certificate of Achievement</span>
+          <div class="cert-name">Graphic Design</div>
+          <div class="cert-issuer">Her Tech Africa · Cohort 3</div>
+          <div class="cert-date">December 3, 2025</div>
+          <div class="cert-note">One-month Graphic Design programme — awarded by Founder Taofeeqah Bello for outstanding dedication.</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-wrap">
+          <img src="certificate/AHI.jpg" alt="AHI">
+        </div>
+        <div class="cert-body">
+          <span class="cert-badge">Certificate of Participation</span>
+          <div class="cert-name">Youth Skills Development Programme</div>
+          <div class="cert-issuer">Action Health Incorporated (AHI)</div>
+          <div class="cert-date">January – December 2025</div>
+          <div class="cert-note">Successfully completed the AHI Youth Skills Development Programme, signed by the Executive Director.</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-img-wrap">
+         <img src="certificate/sustyvibes.jpg" alt="SustyVibes">
+        </div>
+        <div class="cert-body">
+          <span class="cert-badge">Certificate of Participation</span>
+          <div class="cert-name">SustyVibes Street Conference 2025</div>
+          <div class="cert-issuer">SustyVibes · Sponsored by UPS Nigeria</div>
+          <div class="cert-date">September 20, 2025</div>
+          <div class="cert-note">2025 SustyVibes National Street Conference — World Cleanup Day initiative, co-signed by UPS Nigeria.</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-emoji">🎓</div>
+        <div class="cert-body">
+          <span class="cert-badge">Certificate of Completion</span>
+          <div class="cert-name">Girls Education & Skills Partnership</div>
+          <div class="cert-issuer">GESP · UNICEF-Backed Programme</div>
+          <div class="cert-date">2023</div>
+          <div class="cert-note">National Skills Qualification (NSQ) Level 1 — a UNICEF-supported Girls Education and Skills Partnership initiative.</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:1.5rem;">
+      <div class="notice">
+        <span>📜</span>
+        <span>All certificates viewable in my <a href="https://drive.google.com/drive/folders/1eQ4rGPOaFGMdVPpv_VEKsaurhFyvgTTA" target="_blank">Google Drive →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sw">
+    <div class="sl">Experience</div>
+    <h2>My journey<br/>so <em>far.</em></h2>
+    <div class="fade-up">
+      <div class="exp-item">
+        <div class="exp-year">Jan–Dec<br/>2025</div>
+        <div class="exp-content">
+          <div class="exp-role">Youth Ambassador (Intern)</div>
+          <div class="exp-org">Action Health Incorporated · Lagos</div>
+          <ul class="exp-ul">
+            <li>Represented AHI in youth-focused programs, advocacy and outreach</li>
+            <li>Planned and executed outreach programs and commemorations</li>
+            <li>Strengthened public speaking with diverse audiences</li>
+            <li>Managed attendance databases using Microsoft Excel</li>
+            <li>Prepared PowerPoint presentations and Word reports</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Mar 2026</div>
+        <div class="exp-content">
+          <div class="exp-role">AI Engineering Graduate</div>
+          <div class="exp-org">TechCrush · ACTD Accredited, USA</div>
+          <div class="exp-desc">Completed 15-week AI Bootcamp covering Python, Jupyter, Google Colab, VS Code, and AI/ML concepts.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">2025–26</div>
+        <div class="exp-content">
+          <div class="exp-role">AI Prompt Engineering</div>
+          <div class="exp-org">GYGI — Girls You Got It</div>
+          <div class="exp-desc">Completed AI Prompt Engineering training — mastering how to effectively communicate with and harness AI language models for creative and professional applications.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Dec 2025</div>
+        <div class="exp-content">
+          <div class="exp-role">Graphic Design Graduate</div>
+          <div class="exp-org">Her Tech Africa · Cohort 3</div>
+          <div class="exp-desc">One-month graphic design programme — Certificate of Achievement for outstanding dedication and efforts.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Feb 2024<br/>– Present</div>
+        <div class="exp-content">
+          <div class="exp-role">Content / Digital Creator</div>
+          <div class="exp-org">Jane Creative · Lagos</div>
+          <ul class="exp-ul">
+            <li>Educational and awareness content for Instagram and TikTok</li>
+            <li>Graphic design, video editing, and simple animations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year">Ongoing</div>
+        <div class="exp-content">
+          <div class="exp-role">Front-End Developer</div>
+          <div class="exp-org">Personal Projects · GitHub & Netlify</div>
+          <div class="exp-desc">Built and deployed Jane's Educational Hub, Janet Quiz Hub, and Random Users App using HTML, CSS, JavaScript.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>✦ ✦ ✦</span></div>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg2);">
+  <div class="sw">
+    <div class="sl">Contact</div>
+    <h2>Let's create<br/>something <em>remarkable.</em></h2>
+    <div class="contact-links fade-up">
+      <a href="/cdn-cgi/l/email-protection#660702030d13081413080c0708031226010b070f0a4805090b" class="clink"><span class="li">✉️</span><span class="__cf_email__" data-cfemail="274643424c52495552494d4649425367404a464e4b0944484a">[email&#160;protected]</span></a>
+      <a href="tel:08022348640" class="clink"><span class="li">📞</span>08022348640</a>
+      <a href="https://www.instagram.com/janetadekunrun" target="_blank" class="clink"><span class="li">📸</span>@janetadekunrun — Instagram</a>
+      <a href="https://twitter.com/JAdekunrun" target="_blank" class="clink"><span class="li">🐦</span>@JAdekunrun — X / Twitter</a>
+      <a href="https://github.com/janet18-ade" target="_blank" class="clink"><span class="li">💻</span>github.com/janet18-ade</a>
+      <a href="https://jane-educational-hub.netlify.app" target="_blank" class="clink"><span class="li">🌐</span>jane-educational-hub.netlify.app</a>
+      <a href="https://drive.google.com/drive/folders/1eQ4rGPOaFGMdVPpv_VEKsaurhFyvgTTA" target="_blank" class="clink"><span class="li">📁</span>Design & Video Portfolio</a>
+    </div>
+    <div class="cform fade-up">
+      <div class="ff"><label>Your Name</label><input type="text" placeholder="John Doe"/></div>
+      <div class="ff"><label>Email Address</label><input type="email" placeholder="hello@example.com"/></div>
+      <div class="ff"><label>Message</label><textarea rows="4" placeholder="Tell me about your project..."></textarea></div>
+      <button class="btn btn-primary" style="border:none;width:100%;">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2025 <span>Janet Adekunrun</span> — All Rights Reserved</div>
+  <div>AHI · Her Tech Africa · TechCrush · GYGI · <span>Jane Creative</span></div>
+  <div>Makoko, Lagos, Nigeria</div>
+</footer>
+
+<script>
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});
+  },{threshold:0.06});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
